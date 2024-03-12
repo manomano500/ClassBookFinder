@@ -8,19 +8,7 @@
     <head>
         <title>Add Book</title>
         <script>
-            function handleFormSubmit() {
-                var bookName = document.getElementById("bookName");
-                var subjectSelect = document.getElementById("subjectSelect");
-
-                if (bookName.value === "") {
-                    alert("Please enter a book name.");
-                    return false;
-                } else if (subjectSelect.value === "") {
-                    alert("Please select a subject.");
-                    return false;
-                }
-                return true;
-            }
+          
         </script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"/>
     </head>
@@ -65,10 +53,11 @@
                 <tbody>
 
                     
-                    <c:forEach var="book" items="#{booksManagedBean.fetchAllBooks()}">
+                    <c:forEach var="book" items="#{booksManagedBean.booksList}">
                         <tr>
                             <td><h:outputText value="#{book.bookId}" /></td>
                             <td><h:outputText value="#{book.bookName}" /></td>
+                            <td><h:outputText value="#{book.book}" /></td>
                         
                         </tr>
                     </c:forEach>

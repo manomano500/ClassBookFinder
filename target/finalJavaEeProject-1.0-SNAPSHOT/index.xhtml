@@ -9,10 +9,10 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
         <style>
             .sidebar {
-                position: fixed;
+                /*position: fixed;*/
                 top: 0;
                 left: 0;
-                width: 200px;
+                /*width: 200px;*/
                 height: 100vh;
                 background-color: #f8f9fa;
                 padding: 20px;
@@ -20,34 +20,52 @@
             }
             .semester-link {
                 text-decoration: none;
+                text-align: center;
                 color: #007bff;
-                font-size: 18px;
+                font-size: 25px;
                 cursor: pointer;
+                display: block;
+                padding: 20px;
+                margin-bottom: 10px;
+                border: 1px solid #007bff;
+                border-radius: 5px;
+                transition: background-color 0.3s ease;
+            }
+            .semester-link:hover {
+                background-color: #007bff;
+                color: #fff;
+                
             }
             .subject-list {
                 display: none;
+                list-style: none;
+                padding-left: 20px;
             }
             .subject-list.active {
                 display: block;
             }
             .content {
-                margin-left: 220px;
+                /*margin-left: 220px;*/
                 padding: 20px;
+            }
+            li{
+                list-style: none;
             }
         </style>
     </h:head>
 
     <h:body>
-        <diiv class="">
-            <div class="sidebar col-6">
+            <div class="sidebar col-12">
+                <p class="h1 text-center m-6 p-4 mt-4 ">English Department Subjects</p>
+
                 <ul>
-                    <c:forEach var="sem" items="#{semestersManagedBean.semestersList}">
+                    <c:forEach var="sem" items="#{helperManagedBean.feachAllSemesterEnums()}">
                         <li>
-                            <a class="semester-link" onclick="toggleSubjects(this)">
-                             #{sem.semName}
+                            <a class="semester-link text-decoration-none" onclick="toggleSubjects(this)">
+                                #{sem}
                             </a>
                             <ul class="subject-list">
-                                <c:forEach var="semsub" items="#{semestersManagedBean.subjectsForThisSem(sem)}">
+                                <c:forEach var="semsub" items="#{helperManagedBean.getSubjectsForSemester(sem)}">
                                     <li>#{semsub.subName}</li>
                                 </c:forEach>
                             </ul>
@@ -55,13 +73,11 @@
                     </c:forEach>
                 </ul>
             </div>
-            <div class="content ">
+<!--            <div class="content col-6">
                 <div id="subject-details">
                     Select a semester to view subjects.
                 </div>
-            </div>   
-        </diiv>
-    
+            </div>-->
 
         <script>
             function toggleSubjects(element) {

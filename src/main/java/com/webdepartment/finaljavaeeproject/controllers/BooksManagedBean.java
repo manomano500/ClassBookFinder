@@ -4,6 +4,7 @@
  */
 package com.webdepartment.finaljavaeeproject.controllers;
 
+import com.webdepartment.finaljavaeeproject.aice.SemesterEnum;
 import com.webdepartment.finaljavaeeproject.entities.Book;
 import com.webdepartment.finaljavaeeproject.services.BooksService;
 import java.io.Serializable;
@@ -38,16 +39,38 @@ public class BooksManagedBean implements Serializable {
     private SubjectService subjectService; // Added
 
     private String book_name;
+  
     private Subject book_subject;
+    
+    private int selectedSub; // Updated to Long type to store semester ID
+    private List<Book> booksList;
 
-    // ... other methods
-    public List<Book> fetchAllBooks() {
-        return booksService.getAllBooks();
+
+
+ 
+
+    
+    public List<Book> getBooksList() {
+        if (booksList == null) {
+            booksList = booksService.getAllBooks();
+
+        } else {
+            booksList.clear();
+            booksList = booksService.getAllBooks();
+        }
+        return booksList;
     }
 
     public void addBook() {
-        Book book = new Book(book_name, book_subject);
+        Book book = new Book();
+        book.setBookName(book_name);
+        book.setSubId(subjectService.findSubById(selectedSub));
         booksService.addBook(book);
+    }
+    
+    
+    public void deleteBook(int book_id){
+        booksService.deleteBook(book_id);
     }
 
     public void setBook_name(String book_name) {
@@ -66,7 +89,15 @@ public class BooksManagedBean implements Serializable {
         return book_subject;
     }
 
-    public List<Subject> getSubjects() { // New method
+    public List<Subject> feachSubjects() { // New method
         return subjectService.getAllSubjects();
+    }
+    
+        public void setSelectedSub(int selectedSub) {
+        this.selectedSub = selectedSub;
+    }
+
+    public int getSelectedSub() {
+        return selectedSub;
     }
 }

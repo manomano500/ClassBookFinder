@@ -12,8 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -29,7 +27,8 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Subject.findAll", query = "SELECT s FROM Subject s"),
     @NamedQuery(name = "Subject.findBySubId", query = "SELECT s FROM Subject s WHERE s.subId = :subId"),
-    @NamedQuery(name = "Subject.findBySubName", query = "SELECT s FROM Subject s WHERE s.subName = :subName")})
+    @NamedQuery(name = "Subject.findBySubName", query = "SELECT s FROM Subject s WHERE s.subName = :subName"),
+    @NamedQuery(name = "Subject.findBySemester", query = "SELECT s FROM Subject s WHERE s.semester = :semester")})
 public class Subject implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,12 +40,12 @@ public class Subject implements Serializable {
     @Size(max = 50)
     @Column(name = "sub_name")
     private String subName;
+    @Size(max = 160)
+    @Column(name = "semester")
+    private String semester;
     @OneToMany(mappedBy = "subId")
     private List<Book> bookList;
-    @JoinColumn(name = "sem_id", referencedColumnName = "sem_id")
-    @ManyToOne
-    private Semester semId;
-  
+
     public Subject() {
     }
 
@@ -54,13 +53,14 @@ public class Subject implements Serializable {
         this.subId = subId;
     }
 
-    public Subject(String subject_name, Semester sem) {
+    public Subject(int sub_id, String sub_name, String sem) {
+        this.subId = subId;
+        this.subName = sub_name;
+        this.semester = sem;
 
-        this.subName=subject_name;
-        this.semId =sem;
+
+
     }
-
-  
 
     public Integer getSubId() {
         return subId;
@@ -78,20 +78,20 @@ public class Subject implements Serializable {
         this.subName = subName;
     }
 
+    public String getSemester() {
+        return semester;
+    }
+
+    public void setSemester(String semester) {
+        this.semester = semester;
+    }
+
     public List<Book> getBookList() {
         return bookList;
     }
 
     public void setBookList(List<Book> bookList) {
         this.bookList = bookList;
-    }
-
-    public Semester getSemId() {
-        return semId;
-    }
-
-    public void setSemId(Semester semId) {
-        this.semId = semId;
     }
 
     @Override
@@ -119,12 +119,4 @@ public class Subject implements Serializable {
         return "com.webdepartment.finaljavaeeproject.entities.Subject[ subId=" + subId + " ]";
     }
     
-    public int getIdAsInt() {
-        return (subId != null) ? subId.intValue() : 0;
-    }
-
-    public String getSemIdAsString() {
-        return (semId != null) ? semId.toString() : "8";
-    }
 }
-

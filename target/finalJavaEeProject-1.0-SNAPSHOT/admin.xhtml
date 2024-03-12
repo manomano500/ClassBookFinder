@@ -1,30 +1,80 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
     <h:head>
-        <title>Add Subject</title>
+        <title>Semester Grid</title>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+        <style>
+            .sidebar {
+                /*margin-top: 5px;  Adjust the margin value as needed */
+
+                /*position: fixed;*/
+                /*top: 0;*/
+                left: 0;
+                width: 350px; /* Adjust the width as needed */
+                height: 100vh;
+                background-color: #f8f9fa;
+                padding: 20px;
+                overflow-y: auto;
+            }
+            .semester-link {
+                text-decoration: none;
+                color: #007bff;
+                font-size: 18px;
+                cursor: pointer;
+            }
+            .content {
+                height: 100vh;
+
+
+                /*margin-left: 320px;  Adjust the margin to accommodate the wider sidebar */
+                /*padding: 20px;*/
+            }
+        </style>
     </h:head>
+    <ui:include  src="/parts/nav.xhtml"></ui:include>
+
     <h:body>
-        <h:form>
-            <h:panelGrid columns="3">
-                <h:outputLabel for="subjectName">Subject Name:</h:outputLabel>
-                <h:inputText id="subjectName" value="#{subjectsManagedBean.subject_name}" required="true" />
-                <h:message for="subjectName"/>
-                
-                <h:outputLabel for="semester">Semester:</h:outputLabel>
-                <h:selectOneMenu id="semester" value="#{subjectsManagedBean.selectedSem}" required="true">
-                    <f:selectItems value="#{semestersManagedBean.semestersList}" var="semester" itemLabel="#{semester.semName}" itemValue="#{semester.semId}" />
-<!--                    <f:converter converterId="semesterConverter" />-->
+        <div class="row">
 
-                </h:selectOneMenu>
-            <h:message for="semester"/>
-            </h:panelGrid>
+            <div class="sidebar col-3">
+                <ul>
+                    <li>
+                        <a class="semester-link" onclick="loadContent('home.xhtml', 'subject-details')">
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a class="semester-link" onclick="loadContent('addBooks.xhtml', 'subject-details')">
+                            Books
+                        </a>
+                    </li>
+                    <li>
+                        <a class="semester-link" onclick="loadContent('addSubjects.xhtml', 'subject-details')">
+                            Subjects
+                        </a>
+                    </li>
 
-            <p:commandButton value="Add Subject" action="#{subjectsManagedBean.addSubject}" ajax="false" />
-            
 
-        </h:form>
+                </ul>
+            </div>
+            <div class="content col-9">
+                <iframe id="subject-details" src="home.xhtml" frameborder="0" width="100%" height="100%"></iframe>
+            </div>
+           
+        </div>
+
+        <script>
+            function loadContent(url, frameId) {
+                var frame = document.getElementById(frameId);
+                frame.src = url;
+            }
+        </script>
     </h:body>
+
 </html>
+

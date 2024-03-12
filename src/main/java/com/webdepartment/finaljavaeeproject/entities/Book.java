@@ -27,7 +27,8 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Book.findAll", query = "SELECT b FROM Book b"),
     @NamedQuery(name = "Book.findByBookId", query = "SELECT b FROM Book b WHERE b.bookId = :bookId"),
-    @NamedQuery(name = "Book.findByBookName", query = "SELECT b FROM Book b WHERE b.bookName = :bookName")})
+    @NamedQuery(name = "Book.findByBookName", query = "SELECT b FROM Book b WHERE b.bookName = :bookName"),
+    @NamedQuery(name = "Book.findByBookPath", query = "SELECT b FROM Book b WHERE b.bookPath = :bookPath")})
 public class Book implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,6 +40,9 @@ public class Book implements Serializable {
     @Size(max = 50)
     @Column(name = "book_name")
     private String bookName;
+    @Size(max = 255)
+    @Column(name = "book_path")
+    private String bookPath;
     @JoinColumn(name = "sub_id", referencedColumnName = "sub_id")
     @ManyToOne
     private Subject subId;
@@ -48,10 +52,6 @@ public class Book implements Serializable {
 
     public Book(Integer bookId) {
         this.bookId = bookId;
-    }
-
-    public Book(String book_name, Subject book_subject) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     public Integer getBookId() {
@@ -68,6 +68,14 @@ public class Book implements Serializable {
 
     public void setBookName(String bookName) {
         this.bookName = bookName;
+    }
+
+    public String getBookPath() {
+        return bookPath;
+    }
+
+    public void setBookPath(String bookPath) {
+        this.bookPath = bookPath;
     }
 
     public Subject getSubId() {

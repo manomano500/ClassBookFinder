@@ -33,24 +33,9 @@
         <managed-bean-class>com.webdepartment.finaljavaeeproject.controllers.SubjectsManagedBean</managed-bean-class>
     
         <managed-bean-scope>request</managed-bean-scope></managed-bean>
-        
     <managed-bean>
-        <managed-bean-name>semesterConverter</managed-bean-name>
-        <managed-bean-class>com.webdepartment.finaljavaeeproject.aice.SemesterConverter
-        </managed-bean-class>
-    
-        <managed-bean-scope>view</managed-bean-scope></managed-bean>
-    <managed-bean>
-        <managed-bean-name>semestersManagedBean</managed-bean-name>
-        <managed-bean-class>com.webdepartment.finaljavaeeproject.controllers.SemestersManagedBean</managed-bean-class>
+        <managed-bean-name>helperManagedBean</managed-bean-name>
+        <managed-bean-class>com.webdepartment.finaljavaeeproject.controllers.HelperManagedBean</managed-bean-class>
     
         <managed-bean-scope>request</managed-bean-scope></managed-bean>
-        
-        <application>
-            <converter>
-                <converter-id>semesterConverter</converter-id>
-                <converter-class>com.webdepartment.finaljavaeeproject.aice.SemesterConverter</converter-class>
-            </converter>
-            <!-- Add other configurations if needed -->
-        </application>
 </faces-config>

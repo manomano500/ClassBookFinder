@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <head>
+        <title>Manage Subjects</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/4.8.0/firebaseui.css"/>
+        <link rel="stylesheet" href="alert/dist/sweetalert.css"/>
+        <style>
+
+
+            body {
+                width: inherit;
+                overflow: hidden;
+            }
+            .text-danger {
+                color: red;
+                margin: 10px;
+            }
+
+            #subjects-page {
+                margin: 50px;
+            }
+
+            #subjectFormModal .modal-dialog {
+                max-width: 450px;
+            }
+
+            #subjectFormModal .modal-title {
+                font-size: 24px;
+            }
+
+            #subjectFormModal .modal-body {
+                padding: 20px;
+            }
+
+            #subjectFormModal .form-group {
+                margin-bottom: 40px;
+            }
+
+            #subjectFormModal label {
+                font-weight: bold;
+            }
+
+            #subjectFormModal .btn-primary {
+                margin-top: 20px;
+            }
+        </style>
+    </head>
+    <h:body>
+
+        <h:outputText styleClass="text-danger" value="#{files.errMsg}"></h:outputText>
+        <div id="subjects-page">
+            <h2>Manage Books</h2>
+            <button type="button" class="btn btn-primary mb-3 mt-4" data-toggle="modal" data-target="#subjectFormModal">
+                Add Book
+            </button>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Book Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="book" items="#{booksManagedBean.booksList}">
+                        <tr>
+                            <td><h:outputText value="#{book.bookId}" /></td>
+                            <td><h:outputText value="#{book.bookName}" /></td>
+                            <td>
+                                <h:form>
+                                    <h:commandButton styleClass="btn btn-danger" value="Delete" action="#{booksManagedBean.deleteBook(book.bookId)}"
+                                                     ></h:commandButton>
+                                </h:form>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="subjectFormModal" tabindex="-1" role="dialog" aria-labelledby="subjectFormModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="subjectFormModalLabel">Add New Book</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">X</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Subject form -->
+                        <!-- Subject form -->
+                        <h:form enctype="multipart/form-data" >
+                            <h2 class="form-title">Add Book</h2>
+                            <div class="form-group">
+                                <label for="subjectName" class="form-label">Book Name:</label>
+                                <h:inputText id="subjectName" value="#{booksManagedBean.book_name}" required="true" class="form-control" />
+                                <h:message for="subjectName" styleClass="error-message" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="book" class="form-label">Subject: </label>
+                                <h:selectOneMenu id="book" value="#{booksManagedBean.selectedSub}" required="true" class="form-control">
+                                    <f:selectItems value="#{subjectsManagedBean.subjectsList}" var="subject" itemLabel="#{subject.subName}" itemValue="#{subject.subId}" />
+                                </h:selectOneMenu>
+                                <h:message for="semester" styleClass="error-message" />
+                            </div>
+                            <div class="form-group">
+                                <label for="bookdata" class="form-label">book </label>
+                                <h:commandButton value="Upload"  styleClass="btn btn-primary m-3" />
+                                <h:inputFile id="bookdata"  class="mb-3" required="false"/>
+                                <h:message for="bookdata" styleClass="error-message" />
+                            </div>
+                            
+
+                            <p:commandButton value="Add Subject" action="#{booksManagedBean.addBook()}" ajax="true" class="btn btn-primary btn-block" />
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://cdn.firebase.com/libs/firebaseui/4.8.0/firebaseui.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script type="text/javascript">
+            var status = document.getElementById("status").value;
+            if (status == "fail") {
+                swal("Sorry", "Wrong Email or Password", "error");
+            }
+        </script>
+    </h:body>
+</html>

@@ -25,7 +25,7 @@ import javax.persistence.PersistenceContext;
  * @author mahjouba
  */
 @Stateless
-public class BooksService {
+public class BooksService extends AbstractClass {
 
 
     @PersistenceContext
@@ -78,12 +78,12 @@ e.printStackTrace();
     }
     
     
-
+  
+    
     public boolean addBook(Book book) {
-        boolean isAdded =false;
+        boolean isAdded = false;
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-
 
         try {
             // Database connection
@@ -91,24 +91,21 @@ e.printStackTrace();
             connection = DriverManager.getConnection(DB_URL, USER_NAME, "");
 
             // Insert user information into the database
-            String sql = "INSERT INTO books (book_name, sub_id) VALUES ( ?, ?)";
+            String sql = "INSERT INTO `books` (book_name, sub_id) VALUES ( ?, ?)";
             preparedStatement = connection.prepareStatement(sql);
 
-            
-                // Assuming you store the current user's ID in a session variable
+            // Assuming you store the current user's ID in a session variable
+            preparedStatement.setString(1, book.getBookName());
+            preparedStatement.setInt(2, book.getBookId());
 
-                preparedStatement.setString(1, book.getBookName());
-                preparedStatement.setObject(2, book.getSubId());
-                
-                int rowCount = preparedStatement.executeUpdate();
+            int rowCount = preparedStatement.executeUpdate();
 
-                if (rowCount > 0) {
-                    isAdded=true;
-                    // Insertion successful
-                    
-                  
-                } 
-            
+            if (rowCount > 0) {
+                isAdded = true;
+                // Insertion successful
+
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -120,18 +117,49 @@ e.printStackTrace();
                 e.printStackTrace();
             }
         }
-        return isAdded;  
+        return isAdded;
 
     }
-    
-    
-    
-    
-    
-    
-    
-    
+
+     public void deleteBook(int book_id) {
+        Connection connection = null;    
+        boolean isAdded = false;
 
 
+        try {
+            // Database connection
+            Class.forName(JDBC_DRIVER);
+            connection = DriverManager.getConnection(DB_URL, USER_NAME, "");
+
+            // Delete user by ID
+            String deleteQuery = "DELETE FROM books WHERE book_id=?";
+            try (PreparedStatement statement = connection.prepareStatement(deleteQuery)) {
+                statement.setInt(1, book_id);
+
+                int rowCount = statement.executeUpdate();
+
+                if (rowCount > 0) {
+                    isAdded=true;
+                    // Deletion successful
+                } else {
+                    // Deletion failed
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+
+   
 
 }

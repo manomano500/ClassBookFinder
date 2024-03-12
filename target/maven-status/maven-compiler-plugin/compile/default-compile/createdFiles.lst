@@ -1,0 +1,11 @@
+com\webdepartment\finaljavaeeproject\controllers\HelperManagedBean.class
+com\webdepartment\finaljavaeeproject\controllers\SubjectsManagedBean.class
+com\webdepartment\finaljavaeeproject\services\AbstractClass.class
+com\webdepartment\finaljavaeeproject\entities\Book.class
+com\webdepartment\finaljavaeeproject\services\SubjectService.class
+com\webdepartment\finaljavaeeproject\aice\SemesterEnum.class
+com\webdepartment\finaljavaeeproject\controllers\BooksManagedBean.class
+com\webdepartment\finaljavaeeproject\entities\User.class
+com\webdepartment\finaljavaeeproject\services\BooksService.class
+com\webdepartment\finaljavaeeproject\entities\Subject.class
+com\webdepartment\finaljavaeeproject\services\AbstractClass$AbstractFacade.class
