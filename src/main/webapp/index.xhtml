@@ -59,7 +59,7 @@
                 <p class="h1 text-center m-6 p-4 mt-4 ">English Department Subjects</p>
 
                 <ul>
-                    <c:forEach var="sem" items="#{helperManagedBean.feachAllSemesterEnums()}">
+                    <c:forEach var="sem" items="#{helperManagedBean.feachAllSemesterNames()}">
                         <li>
                             <a class="semester-link text-decoration-none" onclick="toggleSubjects(this)">
                                 #{sem}

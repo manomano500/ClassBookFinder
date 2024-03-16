@@ -32,10 +32,25 @@
         <managed-bean-name>subjectsManagedBean</managed-bean-name>
         <managed-bean-class>com.webdepartment.finaljavaeeproject.controllers.SubjectsManagedBean</managed-bean-class>
     
-        <managed-bean-scope>request</managed-bean-scope></managed-bean>
+        <managed-bean-scope>session</managed-bean-scope></managed-bean>
     <managed-bean>
         <managed-bean-name>helperManagedBean</managed-bean-name>
         <managed-bean-class>com.webdepartment.finaljavaeeproject.controllers.HelperManagedBean</managed-bean-class>
     
         <managed-bean-scope>request</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>departmentManagedBean</managed-bean-name>
+        <managed-bean-class>com.webdepartment.finaljavaeeproject.controllers.DepartmentManagedBean</managed-bean-class>
+    
+        <managed-bean-scope>session</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>semestersManagedBean</managed-bean-name>
+        <managed-bean-class>com.webdepartment.finaljavaeeproject.controllers.SemestersManagedBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>semesterEnum</managed-bean-name>
+        <managed-bean-class>com.webdepartment.finaljavaeeproject.aice.SemesterEnum</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 </faces-config>

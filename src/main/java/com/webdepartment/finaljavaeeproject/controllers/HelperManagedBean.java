@@ -31,19 +31,21 @@ public class HelperManagedBean {
      */
     public HelperManagedBean() {
     }
-    
-    public List<String> feachAllSemesterEnums() {
-        return Arrays.asList(
-                SemesterEnum.FIRST_SEMESTER.getDisplayName(),
-                SemesterEnum.SECOND_SEMESTER.getDisplayName(),
-                SemesterEnum.THIRD_SEMESTER.getDisplayName(),
-                SemesterEnum.FOURTH_SEMESTER.getDisplayName(),
-                SemesterEnum.FIFTH_SEMESTER.getDisplayName(),
-                SemesterEnum.SIXTH_SEMESTER.getDisplayName(),
-                SemesterEnum.SEVENTH_SEMESTER.getDisplayName(),
-                SemesterEnum.Eight_Semester.getDisplayName()
-        );
-    }
+///    
+//    public List<Integer> feachAllSemesterNames() {
+//        System.err.println(SemesterEnum.FIRST_SEMESTER.getId()+""
+//        );
+//        return Arrays.asList(
+//                SemesterEnum.FIRST_SEMESTER.getId(),
+//                SemesterEnum.SECOND_SEMESTER.getId(),
+//                SemesterEnum.THIRD_SEMESTER.getId(),
+//                SemesterEnum.FOURTH_SEMESTER.getId(),
+//                SemesterEnum.FIFTH_SEMESTER.getId(),
+//                SemesterEnum.SIXTH_SEMESTER.getId(),
+//                SemesterEnum.SEVENTH_SEMESTER.getId(),
+//                SemesterEnum.Eight_Semester.getId()
+//        );
+//    }
 
     public List<Subject> getSubjectsForSemester(String semesterEnum) {
         List<Subject> subjectsList = new ArrayList<>();
@@ -62,8 +64,8 @@ public class HelperManagedBean {
 
             while (resultSet.next()) {
                 Subject subject = new Subject();
-                subject.setSubId(resultSet.getInt(1));
-                subject.setSubName(resultSet.getString("sub_name"));
+//                subject.setSubId(resultSet.getInt(1));
+//                subject.setSubName(resultSet.getString("sub_name"));
                 subjectsList.add(subject);
             }
 
@@ -85,4 +87,18 @@ public class HelperManagedBean {
         return subjectsList;
     }
 
+    
+    public List<String> feachAllSemesterNames() {
+
+        return Arrays.asList(
+                                SemesterEnum.FIRST_SEMESTER.getDisplayName(),
+                                SemesterEnum.SECOND_SEMESTER.getDisplayName(),
+                                SemesterEnum.THIRD_SEMESTER.getDisplayName(),
+                                SemesterEnum.FOURTH_SEMESTER.getDisplayName(),
+                                SemesterEnum.FIFTH_SEMESTER.getDisplayName(),
+                                SemesterEnum.SIXTH_SEMESTER.getDisplayName(),
+                                SemesterEnum.SEVENTH_SEMESTER.getDisplayName(),
+                                SemesterEnum.Eight_Semester.getDisplayName()
+                        );
+    }
 }

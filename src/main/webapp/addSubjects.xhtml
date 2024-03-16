@@ -13,7 +13,7 @@
             
             body {
                 width: 100vw;
-                height: 100vh;
+                height: fit-content;
                 overflow: auto;
             }
 
@@ -32,7 +32,7 @@
             }
 
             #subjects-page {
-                margin: 50px;
+                /*margin: 50px;*/
             }
 
             #subjectFormModal .modal-dialog {
@@ -62,36 +62,50 @@
     </head>
     <h:body>
 
+        <h1>#{departmentManagedBean.selectedDepartment.departmentName} </h1>
         <h:outputText styleClass="text-danger" value="#{files.errMsg}"/>
         <div id="subjects-page">
             <h2>Manage Subjects</h2>
             <button type="button" class="btn btn-primary mb-3 mt-4" data-toggle="modal" data-target="#subjectFormModal">
                 Add Subject
             </button>
+          
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <!--<th>ID</th>-->
                         <th>Subject Name</th>
                         <th>Subject Semester</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="subject" items="#{subjectsManagedBean.subjectsList}">
-                        <tr>
-                            <td><h:outputText value="#{subject.subId}" /></td>
-                            <td><h:outputText value="#{subject.subName}" /></td>
-                            <td><h:outputText value="#{subject.semester}" /></td>
-                            <td>
-                                <h:form>
-                                    <!--<input type="hidden" name="subjectId" value="#{subject.subId}" />-->
-                                    <h:commandButton styleClass="btn btn-danger" value="Delete" action="#{subjectsManagedBean.deleteSubject(subject.subId)}"
-                                                     />
-                                </h:form>
-                            </td>
-                        </tr>
-                    </c:forEach>
+                    
+                    
+                    <!--<c:forEach var="subject" items="#{subjectsManagedBean.getSubjectsForSemesterDepartment(semestersManagedBean.selectedSemester, departmentManagedBean.selectedDepartment)}">-->
+                    
+<!--                    
+                    <c:if test="#{departmentManagedBean.selectedDepartment == null}">
+                        <div class="alert alert-warning" role="alert">
+                            Please select a department.
+                        </div>
+                    </c:if>-->
+
+                    <c:if test="#{not empty departmentManagedBean.selectedDepartment}">
+                        <c:forEach var="subject" items="#{departmentManagedBean.feachDepartmentSubjects(departmentManagedBean.selectedDepartment)}">
+                            
+                            <tr>
+                                <!--<td><h:outputText value="#{subject.subjectID}" /></td>-->
+                                <td><h:outputText value="#{subject.subjectName}" /></td>
+                                <td><h:outputText value="#{subject.semesterID.semesterName}" /></td>
+                                <td>
+                                    <h:form>
+                                        <h:commandButton styleClass="btn btn-danger" value="Delete" />
+                                    </h:form>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </c:if>
                 </tbody>
             </table>
         </div>
@@ -120,7 +134,7 @@
                             <div class="form-group">
                                 <label for="semester" class="form-label">Semester:</label>
                                 <h:selectOneMenu id="semester" value="#{subjectsManagedBean.selectedSem}" required="true" class="form-control">
-                                    <f:selectItems value="#{helperManagedBean.feachAllSemesterEnums()}" var="semester" itemLabel="#{semester}" itemValue="#{semester}" />
+                                    <f:selectItems value="#{helperManagedBean.feachAllSemesterNames()}" var="semester" itemLabel="#{semester}" itemValue="#{semester}" />
                                 </h:selectOneMenu>
                                 <h:message for="semester" styleClass="error-message" />
                             </div>

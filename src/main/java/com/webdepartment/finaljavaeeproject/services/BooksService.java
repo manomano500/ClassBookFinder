@@ -38,128 +38,28 @@ public class BooksService extends AbstractClass {
     final String USER_NAME = "root";
 
    
-    
-    
-    
-    
     public List<Book> getAllBooks() {
-        List<Book> booksList=new ArrayList<>();
-
-            Connection connection = null;
-            PreparedStatement preparedStatement = null;
-
-        try {
-
-            Class.forName(JDBC_DRIVER);
-            connection = DriverManager.getConnection(DB_URL, USER_NAME, "");
-            String sql = "SELECT * FROM `books`";
-
-            preparedStatement = connection.prepareStatement(sql);
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                Book book = new Book();
-                book.setBookId(resultSet.getInt(1));
-                book.setBookName(resultSet.getString("book_name"));
-                Subject subject =new Subject();
-                subject.setSubId(resultSet.getInt("sub_id"));
-                book.setSubId(subject);
-                booksList.add(book);
-
-            }
-            connection.close();
-            preparedStatement.close();
-
-        } catch (Exception e) {
-e.printStackTrace();
-        }
-
+        List<Book> booksList = new ArrayList<>();
+        booksList=em.createNamedQuery("Book.findAll",Book.class).getResultList();
         return booksList;
     }
     
     
-  
     
-    public boolean addBook(Book book) {
-        boolean isAdded = false;
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-
-        try {
-            // Database connection
-            Class.forName(JDBC_DRIVER);
-            connection = DriverManager.getConnection(DB_URL, USER_NAME, "");
-
-            // Insert user information into the database
-            String sql = "INSERT INTO `books` (book_name, sub_id) VALUES ( ?, ?)";
-            preparedStatement = connection.prepareStatement(sql);
-
-            // Assuming you store the current user's ID in a session variable
-            preparedStatement.setString(1, book.getBookName());
-            preparedStatement.setInt(2, book.getBookId());
-
-            int rowCount = preparedStatement.executeUpdate();
-
-            if (rowCount > 0) {
-                isAdded = true;
-                // Insertion successful
-
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return isAdded;
-
+    
+    
+    
+    
+    public void addBook(Book book){
+       
+       
+            em.persist(book);
+            
+        
     }
-
-     public void deleteBook(int book_id) {
-        Connection connection = null;    
-        boolean isAdded = false;
-
-
-        try {
-            // Database connection
-            Class.forName(JDBC_DRIVER);
-            connection = DriverManager.getConnection(DB_URL, USER_NAME, "");
-
-            // Delete user by ID
-            String deleteQuery = "DELETE FROM books WHERE book_id=?";
-            try (PreparedStatement statement = connection.prepareStatement(deleteQuery)) {
-                statement.setInt(1, book_id);
-
-                int rowCount = statement.executeUpdate();
-
-                if (rowCount > 0) {
-                    isAdded=true;
-                    // Deletion successful
-                } else {
-                    // Deletion failed
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
-
-
+    
+   
+     
    
 
 }

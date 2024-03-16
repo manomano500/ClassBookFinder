@@ -63,15 +63,13 @@ public class BooksManagedBean implements Serializable {
 
     public void addBook() {
         Book book = new Book();
-        book.setBookName(book_name);
-        book.setSubId(subjectService.findSubById(selectedSub));
+        book.setTitle(book_name);
+        book.setSubjectID(subjectService.findSubById(selectedSub));
         booksService.addBook(book);
     }
     
     
-    public void deleteBook(int book_id){
-        booksService.deleteBook(book_id);
-    }
+    
 
     public void setBook_name(String book_name) {
         this.book_name = book_name;

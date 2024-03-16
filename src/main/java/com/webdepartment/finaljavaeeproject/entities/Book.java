@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -27,25 +28,34 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Book.findAll", query = "SELECT b FROM Book b"),
     @NamedQuery(name = "Book.findByBookId", query = "SELECT b FROM Book b WHERE b.bookId = :bookId"),
-    @NamedQuery(name = "Book.findByBookName", query = "SELECT b FROM Book b WHERE b.bookName = :bookName"),
-    @NamedQuery(name = "Book.findByBookPath", query = "SELECT b FROM Book b WHERE b.bookPath = :bookPath")})
+    @NamedQuery(name = "Book.findByTitle", query = "SELECT b FROM Book b WHERE b.title = :title"),
+    @NamedQuery(name = "Book.findByAuthor", query = "SELECT b FROM Book b WHERE b.author = :author")})
 public class Book implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "book_id")
+    @Column(name = "bookId")
     private Integer bookId;
-    @Size(max = 50)
-    @Column(name = "book_name")
-    private String bookName;
     @Size(max = 255)
-    @Column(name = "book_path")
-    private String bookPath;
-    @JoinColumn(name = "sub_id", referencedColumnName = "sub_id")
+    @Column(name = "Title")
+    private String title;
+    @Size(max = 255)
+    @Column(name = "Author")
+    private String author;
+    @Lob
+    @Column(name = "content")
+    private byte[] content;
+    @JoinColumn(name = "DepartmentID", referencedColumnName = "departmentID")
     @ManyToOne
-    private Subject subId;
+    private Department departmentID;
+    @JoinColumn(name = "SubjectID", referencedColumnName = "subjectID")
+    @ManyToOne
+    private Subject subjectID;
+    @JoinColumn(name = "SemesterID", referencedColumnName = "semesterId")
+    @ManyToOne
+    private Semester semesterID;
 
     public Book() {
     }
@@ -62,28 +72,52 @@ public class Book implements Serializable {
         this.bookId = bookId;
     }
 
-    public String getBookName() {
-        return bookName;
+    public String getTitle() {
+        return title;
     }
 
-    public void setBookName(String bookName) {
-        this.bookName = bookName;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getBookPath() {
-        return bookPath;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setBookPath(String bookPath) {
-        this.bookPath = bookPath;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
-    public Subject getSubId() {
-        return subId;
+    public byte[] getContent() {
+        return content;
     }
 
-    public void setSubId(Subject subId) {
-        this.subId = subId;
+    public void setContent(byte[] content) {
+        this.content = content;
+    }
+
+    public Department getDepartmentID() {
+        return departmentID;
+    }
+
+    public void setDepartmentID(Department departmentID) {
+        this.departmentID = departmentID;
+    }
+
+    public Subject getSubjectID() {
+        return subjectID;
+    }
+
+    public void setSubjectID(Subject subjectID) {
+        this.subjectID = subjectID;
+    }
+
+    public Semester getSemesterID() {
+        return semesterID;
+    }
+
+    public void setSemesterID(Semester semesterID) {
+        this.semesterID = semesterID;
     }
 
     @Override

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:c="http://java.sun.com/jsp/jstl/core"
+       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+       xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>TODO supply a title</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />   
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+
+       
+        <p class="h1 mt-4 mb-4">#{departmentManagedBean.selectedDepartment.departmentName}</p> 
+        
+        
+        
+        <div class="list-group">
+            <c:forEach var="semester" items="#{semestersManagedBean.feachtAllSemesters()}">
+                <h:form>
+                    <h:commandButton value="#{semester.semesterName}" styleClass="list-group-item list-group-item-action" action="#{semestersManagedBean.setSelectedSemester(semester)}" >
+                                          
+                            <!--<f:ajax  render="content" />-->
+
+                            <!--<f:ajax event="click" onevent="loadDepartmentPage" />-->
+                    </h:commandButton>
+                </h:form>
+                    
+            </c:forEach>
+        </div>
+        
+        <script src="res/js/script.js"></script>
+
+        
+    </h:body>
+</html>

@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -26,64 +28,49 @@ import javax.validation.constraints.Size;
 @Table(name = "subjects")
 @NamedQueries({
     @NamedQuery(name = "Subject.findAll", query = "SELECT s FROM Subject s"),
-    @NamedQuery(name = "Subject.findBySubId", query = "SELECT s FROM Subject s WHERE s.subId = :subId"),
-    @NamedQuery(name = "Subject.findBySubName", query = "SELECT s FROM Subject s WHERE s.subName = :subName"),
-    @NamedQuery(name = "Subject.findBySemester", query = "SELECT s FROM Subject s WHERE s.semester = :semester")})
+    @NamedQuery(name = "Subject.findBySubjectID", query = "SELECT s FROM Subject s WHERE s.subjectID = :subjectID"),
+    @NamedQuery(name = "Subject.findBySubjectName", query = "SELECT s FROM Subject s WHERE s.subjectName = :subjectName")})
 public class Subject implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "sub_id")
-    private Integer subId;
-    @Size(max = 50)
-    @Column(name = "sub_name")
-    private String subName;
-    @Size(max = 160)
-    @Column(name = "semester")
-    private String semester;
-    @OneToMany(mappedBy = "subId")
+    @Column(name = "subjectID")
+    private Integer subjectID;
+    @Size(max = 255)
+    @Column(name = "SubjectName")
+    private String subjectName;
+    @OneToMany(mappedBy = "subjectID")
     private List<Book> bookList;
+    @JoinColumn(name = "SemesterID", referencedColumnName = "semesterId")
+    @ManyToOne
+    private Semester semesterID;
+    @JoinColumn(name = "DepartmentID", referencedColumnName = "departmentID")
+    @ManyToOne
+    private Department departmentID;
 
     public Subject() {
     }
 
-    public Subject(Integer subId) {
-        this.subId = subId;
+    public Subject(Integer subjectID) {
+        this.subjectID = subjectID;
     }
 
-    public Subject(int sub_id, String sub_name, String sem) {
-        this.subId = subId;
-        this.subName = sub_name;
-        this.semester = sem;
-
-
-
+    public Integer getSubjectID() {
+        return subjectID;
     }
 
-    public Integer getSubId() {
-        return subId;
+    public void setSubjectID(Integer subjectID) {
+        this.subjectID = subjectID;
     }
 
-    public void setSubId(Integer subId) {
-        this.subId = subId;
+    public String getSubjectName() {
+        return subjectName;
     }
 
-    public String getSubName() {
-        return subName;
-    }
-
-    public void setSubName(String subName) {
-        this.subName = subName;
-    }
-
-    public String getSemester() {
-        return semester;
-    }
-
-    public void setSemester(String semester) {
-        this.semester = semester;
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
     }
 
     public List<Book> getBookList() {
@@ -94,10 +81,26 @@ public class Subject implements Serializable {
         this.bookList = bookList;
     }
 
+    public Semester getSemesterID() {
+        return semesterID;
+    }
+
+    public void setSemesterID(Semester semesterID) {
+        this.semesterID = semesterID;
+    }
+
+    public Department getDepartmentID() {
+        return departmentID;
+    }
+
+    public void setDepartmentID(Department departmentID) {
+        this.departmentID = departmentID;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (subId != null ? subId.hashCode() : 0);
+        hash += (subjectID != null ? subjectID.hashCode() : 0);
         return hash;
     }
 
@@ -108,7 +111,7 @@ public class Subject implements Serializable {
             return false;
         }
         Subject other = (Subject) object;
-        if ((this.subId == null && other.subId != null) || (this.subId != null && !this.subId.equals(other.subId))) {
+        if ((this.subjectID == null && other.subjectID != null) || (this.subjectID != null && !this.subjectID.equals(other.subjectID))) {
             return false;
         }
         return true;
@@ -116,7 +119,7 @@ public class Subject implements Serializable {
 
     @Override
     public String toString() {
-        return "com.webdepartment.finaljavaeeproject.entities.Subject[ subId=" + subId + " ]";
+        return "com.webdepartment.finaljavaeeproject.entities.Subject[ subjectID=" + subjectID + " ]";
     }
     
 }

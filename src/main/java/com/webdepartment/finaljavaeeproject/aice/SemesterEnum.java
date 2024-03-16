@@ -4,6 +4,9 @@
  */
 package com.webdepartment.finaljavaeeproject.aice;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  *
  * @author mahjouba
@@ -20,6 +23,15 @@ public enum SemesterEnum {
 
     private final int id;
     private final String displayName;
+    private List<SemesterEnum>  allSemesterEnums;
+
+    public void setAllSemesterEnums(List<SemesterEnum> allSemesterEnums) {
+        this.allSemesterEnums = allSemesterEnums;
+    }
+
+    public List<SemesterEnum> getAllSemesterEnums() {
+        return allSemesterEnums;
+    }
 
     SemesterEnum(int id, String displayName) {
         this.id = id;
@@ -55,6 +67,30 @@ public enum SemesterEnum {
                 throw new IllegalArgumentException("Unknown semester: " + semester);
         }
     }
+    
+    
+    
+    public static int convertStringToInt(String semesterName) {
+        for (SemesterEnum semester : SemesterEnum.values()) {
+            if (semester.getDisplayName().equalsIgnoreCase(semesterName)) {
+                return semester.getId();
+            }
+        }
+        throw new IllegalArgumentException("Invalid semester name: " + semesterName);
+    }
+    
+    
+    public static String convertIntToSemesterName(int semesterId) {
+        for (SemesterEnum semester : SemesterEnum.values()) {
+            if (semester.getId() == semesterId) {
+                return semester.getDisplayName();
+            }
+        }
+        throw new IllegalArgumentException("Invalid semester ID: " + semesterId);
+    }
 
     
+  
+
+
 }
