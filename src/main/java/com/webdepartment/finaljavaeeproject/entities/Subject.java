@@ -49,6 +49,12 @@ public class Subject implements Serializable {
     @JoinColumn(name = "DepartmentID", referencedColumnName = "departmentID")
     @ManyToOne
     private Department departmentID;
+    
+        @Column(name = "code")
+    private String code;
+
+    @Column(name = "unit")
+    private int unit;
 
     public Subject() {
     }
@@ -116,10 +122,27 @@ public class Subject implements Serializable {
         }
         return true;
     }
+    
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public int getUnit() {
+        return unit;
+    }
+
+    public void setUnit(int unit) {
+        this.unit = unit;
+    }
+
 
     @Override
     public String toString() {
-        return "com.webdepartment.finaljavaeeproject.entities.Subject[ subjectID=" + subjectID + " ]";
+        return subjectName;
     }
     
 }

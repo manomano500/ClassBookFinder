@@ -2,6 +2,8 @@ C:\javaee\finalJavaEeProject\src\main\java\com\webdepartment\finaljavaeeproject\
 C:\javaee\finalJavaEeProject\src\main\java\com\webdepartment\finaljavaeeproject\aice\exceptions\NonexistentEntityException.java
 C:\javaee\finalJavaEeProject\src\main\java\com\webdepartment\finaljavaeeproject\aice\exceptions\PreexistingEntityException.java
 C:\javaee\finalJavaEeProject\src\main\java\com\webdepartment\finaljavaeeproject\aice\exceptions\RollbackFailureException.java
+C:\javaee\finalJavaEeProject\src\main\java\com\webdepartment\finaljavaeeproject\aice\ExternalContext.java
+C:\javaee\finalJavaEeProject\src\main\java\com\webdepartment\finaljavaeeproject\aice\MenuView.java
 C:\javaee\finalJavaEeProject\src\main\java\com\webdepartment\finaljavaeeproject\aice\SemesterEnum.java
 C:\javaee\finalJavaEeProject\src\main\java\com\webdepartment\finaljavaeeproject\controllers\BooksManagedBean.java
 C:\javaee\finalJavaEeProject\src\main\java\com\webdepartment\finaljavaeeproject\controllers\DepartmentManagedBean.java

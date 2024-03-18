@@ -6,6 +6,8 @@ package com.webdepartment.finaljavaeeproject.controllers;
 
 import com.webdepartment.finaljavaeeproject.aice.SemesterEnum;
 import com.webdepartment.finaljavaeeproject.entities.Book;
+import com.webdepartment.finaljavaeeproject.entities.Department;
+import com.webdepartment.finaljavaeeproject.entities.Semester;
 import com.webdepartment.finaljavaeeproject.services.BooksService;
 import java.io.Serializable;
 import java.util.List;
@@ -98,4 +100,10 @@ public class BooksManagedBean implements Serializable {
     public int getSelectedSub() {
         return selectedSub;
     }
+    
+    public List<Book> feachBooksByDepartmentSemesterSubject(Department department, Semester semester, Subject subject) {
+    return booksService.findBooksByDepartmentSemesterSubject(department, semester, subject);
+    } // New method
+
+    
 }

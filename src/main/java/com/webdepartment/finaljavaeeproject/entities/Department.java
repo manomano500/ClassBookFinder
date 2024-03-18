@@ -43,8 +43,19 @@ public class Department implements Serializable {
     private List<Book> bookList;
     @OneToMany(mappedBy = "departmentID")
     private List<Subject> subjectList;
+    
+    @Column(name = "Description") // Add this line for the new column
+    private String description;    // Add this line for the new field
+
 
     public Department() {
+    }
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Department(Integer departmentID) {
@@ -105,7 +116,7 @@ public class Department implements Serializable {
 
     @Override
     public String toString() {
-        return "com.webdepartment.finaljavaeeproject.entities.Department[ departmentID=" + departmentID + " ]";
+        return  departmentName ;
     }
     
 }

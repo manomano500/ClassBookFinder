@@ -1,4 +1,7 @@
-
+/* Hide scrollbar for Firefox */
+html {
+    scrollbar-width: none;
+}
 .sidebar {
     /*margin-top: 5px;  Adjust the margin value as needed */
 

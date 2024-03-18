@@ -9,61 +9,12 @@
     <head>
         <title>Manage Subjects</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
-        <style>
-            
-            body {
-                width: 100vw;
-                height: fit-content;
-                overflow: auto;
-            }
 
-            body::-webkit-scrollbar {
-                width: 0.5em;
-                background-color: transparent;
-            }
-
-            body::-webkit-scrollbar-thumb {
-                background-color: transparent;
-            }
-                            
-            .text-danger {
-                color: red;
-                margin: 10px;
-            }
-
-            #subjects-page {
-                /*margin: 50px;*/
-            }
-
-            #subjectFormModal .modal-dialog {
-                max-width: 450px;
-            }
-
-            #subjectFormModal .modal-title {
-                font-size: 24px;
-            }
-
-            #subjectFormModal .modal-body {
-                padding: 20px;
-            }
-
-            #subjectFormModal .form-group {
-                margin-bottom: 40px;
-            }
-
-            #subjectFormModal label {
-                font-weight: bold;
-            }
-
-            #subjectFormModal .btn-primary {
-                margin-top: 20px;
-            }
-        </style>
     </head>
     <h:body>
 
-        <h1>#{departmentManagedBean.selectedDepartment.departmentName} </h1>
-        <h:outputText styleClass="text-danger" value="#{files.errMsg}"/>
+        <!--<h1>#{departmentManagedBean.selectedDepartment.departmentName} </h1>-->
+        <!--<h:outputText styleClass="text-danger" value="#{files.errMsg}"/>-->
         <div id="subjects-page">
             <h2>Manage Subjects</h2>
             <button type="button" class="btn btn-primary mb-3 mt-4" data-toggle="modal" data-target="#subjectFormModal">
@@ -99,9 +50,15 @@
                                 <td><h:outputText value="#{subject.subjectName}" /></td>
                                 <td><h:outputText value="#{subject.semesterID.semesterName}" /></td>
                                 <td>
-                                    <h:form>
+                                    <div class="row">
+                                        
+                                        <h:form styleClass="m-3">
+                                        <h:commandButton styleClass="btn btn-primary " value="Edit" />
+                                    </h:form>
+                                        <h:form styleClass="m-3">
                                         <h:commandButton styleClass="btn btn-danger" value="Delete" />
                                     </h:form>
+                                    </div>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -124,19 +81,30 @@
                         <!-- Subject form -->
                         <!-- Subject form -->
                         <h:form>
-                            <h2 class="form-title">Add Subject</h2>
+                            <!--<h2 class="form-title">Add Subject </h2>-->
+                            <h3 class="">Add Subject to #{semestersManagedBean.selectedSemester} to #{departmentManagedBean.selectedDepartment.departmentName}</h3>
+
                             <div class="form-group">
                                 <label for="subjectName" class="form-label">Subject Name:</label>
                                 <h:inputText id="subjectName" value="#{subjectsManagedBean.subject_name}" required="true" class="form-control" />
                                 <h:message for="subjectName" styleClass="error-message" />
                             </div>
+                            <h:inputHidden value="#{semestersManagedBean.selectedSemester}" required="true" class="form-control" />
+                            <h:inputHidden  value="#{departmentManagedBean.selectedDepartment}" required="true" class="form-control" />
 
                             <div class="form-group">
                                 <label for="semester" class="form-label">Semester:</label>
                                 <h:selectOneMenu id="semester" value="#{subjectsManagedBean.selectedSem}" required="true" class="form-control">
-                                    <f:selectItems value="#{helperManagedBean.feachAllSemesterNames()}" var="semester" itemLabel="#{semester}" itemValue="#{semester}" />
+                                    <f:selectItems value="#{semestersManagedBean.feachtAllSemesters()}" var="semester" itemLabel="#{semester}" itemValue="#{semester}" />
                                 </h:selectOneMenu>
                                 <h:message for="semester" styleClass="error-message" />
+                            </div>
+                            <div class="form-group">
+                                <label for="department" class="form-label">Department:</label>
+                                <h:selectOneMenu id="department" value="#{departmentManagedBean.selectedDepartment}" required="true" class="form-control">
+                                    <f:selectItems value="#{departmentManagedBean.feachDepartments()}" var="semester" itemLabel="#{semester}" itemValue="#{semester}" />
+                                </h:selectOneMenu>
+                                <h:message for="department" styleClass="error-message" />
                             </div>
 
                             <p:commandButton value="Add Subject" action="#{subjectsManagedBean.addSubject()}" ajax="false" class="btn btn-primary btn-block" />
@@ -156,5 +124,9 @@
                 swal("Sorry", "Wrong Email or Password", "error");
             }
         </script>
+        
+        
+        <script src="res/js/script.js"></script>
+
     </h:body>
 </html>

@@ -27,12 +27,12 @@ public class SubjectsManagedBean implements Serializable{
     private List<Subject> subjectsList;
     
     private String subject_name;
-    private Semester selectedSemester; // Updated to Long type to store semester ID
+//    private Semester selectedSemester; // Updated to Long type to store semester ID
     
     private Subject selectedSubject;
 
-    public void setSelectedSubject(Subject selectedSubject) {
-        this.selectedSubject = selectedSubject;
+    public void setSelectedSubject(Subject subject) {
+        this.selectedSubject = subject;
     }
 
     public Subject getSelectedSubject() {
@@ -60,7 +60,7 @@ public class SubjectsManagedBean implements Serializable{
     public void addSubject() {
         Subject subject = new Subject();
         subject.setSubjectName(subject_name);
-        subject.setSemesterID(selectedSemester);
+//        subject.setSemesterID(selectedSemester);
         subjectsService.addSubject(subject);
     }
     public void deleteSubject(int subject_id) {
@@ -70,13 +70,7 @@ public class SubjectsManagedBean implements Serializable{
     }
 
     // Getters and setters for selectedSem
-    public Semester getSelectedSem() {
-        return selectedSemester;
-    }
 
-    public void setSelectedSem(Semester selectedSem) {
-        this.selectedSemester = selectedSem;
-    }
 
     // Getters and setters for subject_name
     public String getSubject_name() {

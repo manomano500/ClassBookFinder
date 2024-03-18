@@ -33,8 +33,8 @@ public class DepartmentManagedBean implements Serializable {
         return selectedDepartment;
     }
 
-    public void setSelectedDepartment(Department selectedDepartment) {
-        this.selectedDepartment = selectedDepartment;
+    public void setSelectedDepartment(Department selected) {
+        this.selectedDepartment = selected;
     }
 
     public String navigateToDepartment() {

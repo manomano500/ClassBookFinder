@@ -5,6 +5,8 @@
 package com.webdepartment.finaljavaeeproject.services;
 
 import com.webdepartment.finaljavaeeproject.entities.Book;
+import com.webdepartment.finaljavaeeproject.entities.Department;
+import com.webdepartment.finaljavaeeproject.entities.Semester;
 import com.webdepartment.finaljavaeeproject.entities.Subject;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -24,7 +27,7 @@ import javax.persistence.PersistenceContext;
  *
  * @author mahjouba
  */
-@Stateless
+@Stateful
 public class BooksService extends AbstractClass {
 
 
@@ -59,7 +62,13 @@ public class BooksService extends AbstractClass {
     }
     
    
-     
-   
-
+      public List<Book> findBooksByDepartmentSemesterSubject(Department department, Semester semester, Subject subject) {
+        return em.createQuery(
+                "SELECT b FROM Book b WHERE b.departmentID = :department AND b.semesterID = :semester AND b.subjectID = :subject",
+                Book.class)
+                .setParameter("department", department)
+                .setParameter("semester", semester)
+                .setParameter("subject", subject)
+                .getResultList();
+      }
 }

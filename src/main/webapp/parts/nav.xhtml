@@ -1,48 +1,55 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <head>
+    <h:head>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
-        <style>
-            .navbar {
-                padding: 10px 20px;
-            }
-            .navbar-brand {
-                font-size: 20px;
-                font-weight: bold;
-            }
-            .navbar-nav .nav-link {
-                font-size: 16px;
-                margin-right: 10px;
-            }
-            .text-white {
-                color: #fff;
-            }
-        </style>
-    </head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/primefaces/10.0.0/css/primefaces.min.css" />
+    </h:head>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="index.xhtml">
-                ClassBook
-            </a>
+    <h:body>
+        <div class=" ">
+            <p:sidebar widgetVar="sidebar1" style="overflow-y: scroll; overflow-style: auto; " position="left" >
+                <p:divider ></p:divider>
 
-            <div class="collapse navbar-collapse" id="navbarNav">
+                <h:link outcome="department.xhtml" styleClass="  list-group-item list-group-item-action " style="border: 0;"    >Departments</h:link>
+                <h:link outcome="addSubjects.xhtml" styleClass="  list-group-item list-group-item-action" style="border: 0">Subjects</h:link>
 
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <h:outputLink styleClass="nav-link" value="index.xhtml">Home</h:outputLink>
-                    </li>
-                   
-                    <li class="nav-item">
-                        <h:outputText styleClass="text-white nav-link" value="#{sessionScope.username}" rendered="#{not empty sessionScope.username}"/>
-                    </li>
-                 
-                </ul>
-            </div>
+            </p:sidebar>
 
-     
+            
         </div>
-    </nav>
+        
+        
+        <div class="row p-4 navbar-dark bg-dark">
+                <div class="col">
+                    
+                    <nav class="navbar-brand display-2">
+                        <a class="navbar-brand " href="new.xhtml">ClassBOok</a>
+                    </nav>
 
+                </div>
+                <div class="col-auto">
+                    <h:form>
+                        <p:commandButton icon="pi pi-cog" type="button" onclick="PF('sidebar1').show()" styleClass="m-2 rounded-button ui-button-secondary  ui-button-plain"  />
+                    </h:form>
+                </div>
+            </div>
+        <div class="card">
+            <h:form>
+                <p:breadCrumb>
+                    <p:menuitem value="main.xhtml"/>
+                    <p:menuitem value="#{departmentManagedBean.selectedDepartment}"/>
+                    <p:menuitem value="#{subjectsManagedBean.selectedSubject}"/>
+           
+                </p:breadCrumb>
+            </h:form>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/primefaces/10.0.0/js/primefaces.min.js"></script>
+    </h:body>
 </html>
