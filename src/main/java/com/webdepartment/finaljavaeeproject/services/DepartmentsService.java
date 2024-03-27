@@ -39,7 +39,7 @@ public class DepartmentsService extends AbstractClass{
  
     public List<Subject> getSemesterSubjectsForDepartment(Semester semester, Department department) {
         Query query = em.createQuery(
-                "SELECT subj FROM Subject subj WHERE subj.semesterID = :semester AND subj.departmentID = :department");
+                "SELECT subj FROM Subject subj WHERE subj.semesterId = :semester AND subj.departmentId = :department");
         query.setParameter("semester", semester);
         query.setParameter("department", department);
         return query.getResultList();

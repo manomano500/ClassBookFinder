@@ -33,35 +33,50 @@ import javax.validation.constraints.Size;
 public class Book implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    public Book(String title, String author) {
+        this.title = title;
+        this.author = author;
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "bookId")
+    @Column(name = "book_id")
     private Integer bookId;
     @Size(max = 255)
-    @Column(name = "Title")
+    @Column(name = "title")
     private String title;
     @Size(max = 255)
-    @Column(name = "Author")
+    @Column(name = "author")
     private String author;
     @Lob
     @Column(name = "content")
     private byte[] content;
-    @JoinColumn(name = "DepartmentID", referencedColumnName = "departmentID")
+    @JoinColumn(name = "department_id", referencedColumnName = "department_id")
     @ManyToOne
-    private Department departmentID;
-    @JoinColumn(name = "SubjectID", referencedColumnName = "subjectID")
+    private Department departmentId;
+    @JoinColumn(name = "semester_id", referencedColumnName = "semester_Id")
     @ManyToOne
-    private Subject subjectID;
-    @JoinColumn(name = "SemesterID", referencedColumnName = "semesterId")
+    private Semester semesterId;
+    @JoinColumn(name = "subject_id", referencedColumnName = "subject_id")
     @ManyToOne
-    private Semester semesterID;
+    private Subject subjectId;
 
     public Book() {
     }
 
     public Book(Integer bookId) {
         this.bookId = bookId;
+    }
+
+    public Book(Integer bookId,String title) {
+        this.bookId = bookId;
+        this.title = title;
+    }
+    public Book(Department department, Subject subject, Semester semester) {
+        this.subjectId =subject;
+        this.semesterId = semester;
+        this.departmentId = department;
     }
 
     public Integer getBookId() {
@@ -96,28 +111,28 @@ public class Book implements Serializable {
         this.content = content;
     }
 
-    public Department getDepartmentID() {
-        return departmentID;
+    public Department getDepartmentId() {
+        return departmentId;
     }
 
-    public void setDepartmentID(Department departmentID) {
-        this.departmentID = departmentID;
+    public void setDepartmentId(Department departmentId) {
+        this.departmentId = departmentId;
     }
 
-    public Subject getSubjectID() {
-        return subjectID;
+    public Semester getSemesterId() {
+        return semesterId;
     }
 
-    public void setSubjectID(Subject subjectID) {
-        this.subjectID = subjectID;
+    public void setSemesterId(Semester semesterId) {
+        this.semesterId = semesterId;
     }
 
-    public Semester getSemesterID() {
-        return semesterID;
+    public Subject getSubjectId() {
+        return subjectId;
     }
 
-    public void setSemesterID(Semester semesterID) {
-        this.semesterID = semesterID;
+    public void setSubjectId(Subject subjectId) {
+        this.subjectId = subjectId;
     }
 
     @Override
@@ -142,7 +157,7 @@ public class Book implements Serializable {
 
     @Override
     public String toString() {
-        return "com.webdepartment.finaljavaeeproject.entities.Book[ bookId=" + bookId + " ]";
+        return title +" ";
     }
     
 }

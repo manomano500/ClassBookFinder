@@ -13,27 +13,28 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
     <h:head>
         <title>TODO supply a title</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />   
+        <link rel="stylesheet" type="text/css" href="res/css/main.css"/>
 
         <!--<h:outputStylesheet library="css" name="homeCss.css"/>-->  
         <!--<link rel="stylesheet" type="text/css" href="theme.css"/>-->
-
+   
     </h:head>
     <h:body>
         <ui:include  src="/parts/nav.xhtml"></ui:include>
-        <h1> #{departmentManagedBean.selectedDepartment}</h1>
+       
 
-        <div class="row m-3 p-2">
+        <div class="row m-3 ">
             <c:forEach var="department" items="#{departmentManagedBean.feachDepartments()}">
                 <div class="col-md-4 mb-3">
                     <a  class="card-link">
                         <div class="card bg-light">
                             <div class="card-body p-">
-                                <p class="card-text text-dark">#{department.subjectList.size()}</p>
+                                <p class="card-text subject-coutn">#{department.subjectList.size()}</p>
                                 <h5 class="card-title text-dark">#{department.departmentName}</h5>
                                 <p class="card-text text-dark">#{department.description}</p> <!-- Add department description here -->
                                 <h:form>
                                     <!--ui-button-raised ui-button-flat ui-button-plain--> 
-                                    <p:commandButton action="subjects.xhtml" id="setdep" value="Read More" styleClass="ui-button-outlined ui-button-secondary mt-4">
+                                    <p:commandButton  action="#{departmentManagedBean.navigateToDepartment}" id="setdep" value="Read More" styleClass="ui-button-outlined ui-button-secondary mt-4">
                                         <f:setPropertyActionListener for="setdep" target="#{departmentManagedBean.selectedDepartment}" value="#{department}" />
                                     </p:commandButton>
                                 </h:form>

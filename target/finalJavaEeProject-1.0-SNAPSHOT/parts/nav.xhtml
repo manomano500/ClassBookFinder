@@ -2,7 +2,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <h:head>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
@@ -10,24 +11,24 @@
     </h:head>
 
     <h:body>
-        <div class=" ">
-            <p:sidebar widgetVar="sidebar1" style="overflow-y: scroll; overflow-style: auto; " position="left" >
-                <p:divider ></p:divider>
+<!--        <div class=" ">
+            <p:sidebar widgetVar="sidebar1" style="overflow-y: scroll; overflow-style: auto; "  >
 
-                <h:link outcome="department.xhtml" styleClass="  list-group-item list-group-item-action " style="border: 0;"    >Departments</h:link>
-                <h:link outcome="addSubjects.xhtml" styleClass="  list-group-item list-group-item-action" style="border: 0">Subjects</h:link>
+                <p:avatar label="ClassBOok"></p:avatar>                <h3 class="m-4">Departments</h3>
+                <h:link  styleClass="  list-group-item list-group-item-action " style="border: 0;width: fit-content">Departments</h:link>
+                <h:link styleClass="  list-group-item list-group-item-action" style="border: 0">Subjects</h:link>
 
             </p:sidebar>
 
             
-        </div>
+        </div>-->
         
         
         <div class="row p-4 navbar-dark bg-dark">
                 <div class="col">
                     
                     <nav class="navbar-brand display-2">
-                        <a class="navbar-brand " href="new.xhtml">ClassBOok</a>
+                        <a class="navbar-brand " href="main.xhtml">ClassBOok</a>
                     </nav>
 
                 </div>
@@ -37,16 +38,8 @@
                     </h:form>
                 </div>
             </div>
-        <div class="card">
-            <h:form>
-                <p:breadCrumb>
-                    <p:menuitem value="main.xhtml"/>
-                    <p:menuitem value="#{departmentManagedBean.selectedDepartment}"/>
-                    <p:menuitem value="#{subjectsManagedBean.selectedSubject}"/>
-           
-                </p:breadCrumb>
-            </h:form>
-        </div>
+        <ui:include  src="/parts/bread.xhtml"></ui:include>
+
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

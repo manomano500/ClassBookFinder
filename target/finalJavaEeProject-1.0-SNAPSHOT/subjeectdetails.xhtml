@@ -10,69 +10,90 @@
         <title>Semester Grid</title>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />   
-        <link rel="stylesheet" type="text/css" href="res/css/style.css"/>
-        <link rel="stylesheet" type="text/css" href="theme.css"/>
+        <!--<link rel="stylesheet" type="text/css" href="res/css/style.css"/>-->
+        <!--<link rel="stylesheet" type="text/css" href="theme.css"/>-->
         <style>
             .active {
                 background-color: #007bff;
                 color: white;
             }
 
+            body::-webkit-scrollbar {
+                width: 0;  /* Set the width to 0 to hide the scrollbar */
+            }
         </style>
     </h:head>
 
     <h:body>
+        
         <ui:include  src="/parts/nav.xhtml"></ui:include>
-        <div class="row m-4">
-            <div class="col-8 ">
-                <p:commandButton  action="department.xhtml" value="#{departmentManagedBean.selectedDepartment}"  styleClass="ui-button-secondary ui-button-flat " style="font-size:24px" />
 
-                <h1>#{subjectsManagedBean.selectedSubject}</h1>
-                
-<br/>
-
-<div class="row border-bottom  ">
-                    <p> Department: #{subjectsManagedBean.selectedSubject.departmentID}</p>
-                </div>
-
-<div class="row border-bottom  ">
-    <P>Semester: #{subjectsManagedBean.selectedSubject.semesterID}</P>
-                    
-                </div>
-<div class="row border-bottom  ">
-<P>  Code: #{subjectsManagedBean.selectedSubject.code}</P>
-                </div>
-                <div class="row border-bottom  ">
-                    <P>  Units #{subjectsManagedBean.selectedSubject.unit}</P>
-                    
-                </div>
-                
-            </div>
-            
-        </div>
         <div class="row">
-            
-            <p:dataTable value="#{booksManagedBean.feachBooksByDepartmentSemesterSubject(departmentManagedBean.selectedDepartment, semestersManagedBean.selectedSemester, subjectsManagedBean.selectedSubject)}"
-                         var="book"
-                         paginator="true"
-                         rows="10"
-                         paginatorPosition="bottom">
-                <p:column headerText=" Title">
-<!--<h:outputText value="#{subject.subjectName}"  />-->
-                    <p:commandButton  action="subjeectdetails.xhtml" value="#{book}" styleClass="ui-button-secondary ui-button-flat" />
 
-                </p:column>
-<!--                <p:column headerText="Author">
-                    <h:outputText value="#{book.author}" />
-                </p:column>-->
-<!--                <p:column headerText="Content">
-                    <h:outputText value="#{book.unit}" />
-                </p:column>
-                <p:column headerText="Code">
-                    <h:outputText value="#{subject.code}" />
-                </p:column>-->
-            </p:dataTable>
+            <div class="col-3 ms-2">
+                <ui:include  src="/parts/side_menu.xhtml"></ui:include>
+
+            </div>
+            <div class="col-8">
+
+
+                <div class="row  mt-4 ml-3">
+                    <div class="col ">
+                        <p:commandButton  action="department.xhtml" value="#{departmentManagedBean.selectedDepartment}"  styleClass="ui-button-secondary ui-button-flat " style="font-size:24px" />
+
+                        <h1>#{subjectsManagedBean.selectedSubject}</h1>
+
+                        <br/>
+
+                        <div class="row border-bottom  ">
+                            <p> Department: #{subjectsManagedBean.selectedSubject.departmentId}</p>
+                        </div>
+
+                        <div class="row border-bottom  ">
+                            <P>Semester: #{subjectsManagedBean.selectedSubject.semesterId   }</P>
+
+                        </div>
+                        <div class="row border-bottom  ">
+                            <P>  Code: #{subjectsManagedBean.selectedSubject.code}</P>
+                        </div>
+                        <div class="row border-bottom  ">
+                            <P>  Units #{subjectsManagedBean.selectedSubject.unit}</P>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="row m-4">
+
+                    <p:dataTable value="#{subjectsManagedBean.feachBooksForSelectedSubject()}"
+                                 var="book"
+                                 paginator="true"
+                                 rows="10"
+                                 paginatorPosition="bottom">
+                        <p:column headerText=" Title">
+                            <h:outputText value="#{book.title}"  />
+                            <!--<p:commandButton  action="subjeectdetails.xhtml" value="#{book}" styleClass="ui-button-secondary ui-button-flat" />-->
+
+                        </p:column>
+                                       <p:column headerText="Author">
+                                            <h:outputText value="#{book.author}" />
+                                        </p:column>
+                        <p:column headerText="Download">
+                            <h:form>
+                                
+                                <p:commandLink value="Download" action="#{booksManagedBean.downloadBook(book)}" ajax="false" />
+                            </h:form>
+                        </p:column>
+                                    
+                    </p:dataTable>
+                </div>
+            </div>
         </div>
+
+
+        
+     
 
         <script src="res/js/script.js"></script>
 

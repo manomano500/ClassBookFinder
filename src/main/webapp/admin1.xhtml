@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>TODO supply a title</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />   
+        <link rel="stylesheet" type="text/css" href="res/style/main.css"/>
+        <style>
+            body::-webkit-scrollbar {
+                width: 0;
+            }
+
+            .subject-count {
+                color: #9494a0;
+            }
+
+            .green {
+                color: #24938f !important;
+                text-wrap: wrap;
+            }
+
+            .bgr-green {
+                background: #24938f;
+                color: #fff;
+            }
+        </style>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <f:metadata>
+            <f:viewAction action="#{usersManagedBean.redirectToLoginIfNotLoggedIn()}" />
+        </f:metadata>
+    </h:head>
+    <h:body>
+        <ui:include src="nav.xhtml"></ui:include>
+        <div class="row  bgr-green">
+            <div class="col m-4 ">
+                <h1> #{usersManagedBean.user.departmentId} Department</h1>
+                <p class="mt-3">Admin Name: #{usersManagedBean.user.userName}</p>
+                <p class="mt-3">Subjects Count: #{usersManagedBean.user.departmentId.subjectList.size()}</p>
+                <p class="mt-3">Books Count: #{usersManagedBean.user.departmentId.bookList.size()}</p>
+            </div>
+        </div> 
+
+        <div class="row">
+            <div class="col-4 ">
+                <ui:include src="side_menu.xhtml"></ui:include>
+            </div>
+            <div class="col-7 ">
+                <h1 class="mt-4 mb-4">#{subjectsManagedBean.selectedSubject}</h1>
+                <div class="card crud-demo">
+                    <div class="container">
+                        <h1 class="text-center">Book Management</h1>
+                        <!-- Button to toggle modal visibility -->
+                        <div class="text-center">
+                            <button id="showFormBtn" class="btn btn-primary" data-toggle="modal" data-target="#bookModal">Add New Book</button>
+                        </div>
+                        <!-- Modal for adding a new book -->
+                        <div class="modal fade" id="bookModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Add New Book</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">,</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h:form id="for"  enctype="multipart/form-data">
+
+                                            <p:outputPanel id="bookModal" class="ui-fluid">
+                                                
+                                                <div class="field">
+                                                    <p:outputLabel for="title">Title</p:outputLabel>
+                                                    <h:inputText id="title" value="#{booksManagedBean.title}" required="true" />
+                                                </div>
+                                                <div class="field">
+                                                    <p:outputLabel for="author">Author</p:outputLabel>
+                                                    <p:inputText id="author" value="#{booksManagedBean.author}" required="true" />
+                                                </div>
+                                                <div class="field">
+                                                    <!--<p:outputLabel for="uploadedFile">Upload PDF</p:outputLabel>-->
+                                                    <input type="file" id="uploadedFile" name="uploadedFile" />
+
+
+                                                    <!-- Display uploaded file name -->
+                                                    <p:outputLabel value="Uploaded File: " />
+                                                </div>
+<!--                                                <f:facet name="footer">
+                                                    <p:commandButton value="Save" icon="pi pi-check" actionListener="#crudView.saveBook}"
+                                                                     update="manage-book-content" process="@form" />
+                                                    <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageBookDialog').hide()"
+                                                                     class="ui-button-secondary" type="button" />
+                                                </f:facet>-->
+                                                
+
+                                            </p:outputPanel>
+                                            <!--                                            <f:facet name="footer">
+                                                                                            <p:commandButton value="Save" icon="pi pi-check" actionListener="#rudView.saveBook()}"
+                                                                                                             update="manage-book-content" process="@form" />
+                                                                                            <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageBookDialog').hide()"
+                                                                                                             class="ui-button-secondary" type="button" />
+                                                                                        </f:facet>-->
+                                            <p:commandButton value="Save" icon="pi pi-check" actionListener="#{booksManagedBean.addBook()}"
+                                                               />
+                                        </h:form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+                
+                <ui:include src="form.xhtml"></ui:include>
+
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </h:body>
+</html>

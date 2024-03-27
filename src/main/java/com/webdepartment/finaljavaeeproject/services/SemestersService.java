@@ -33,7 +33,7 @@ public class SemestersService {
 
    
   
-    public List<Semester> getAllSemesters() {
+    public List<Semester> feachAllSemesters() {
         return em.createNamedQuery("Semester.findAll",Semester.class).getResultList();
     
     }

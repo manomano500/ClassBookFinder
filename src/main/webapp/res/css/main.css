@@ -1,0 +1,17 @@
+body::-webkit-scrollbar {
+    width: 0; 
+    
+    /* Set the width to 0 to hide the scrollbar */
+}
+.subject-coutn{
+    color:  #9494a0
+}
+
+.green{
+    color: #24938f !important;
+    text-wrap: wrap
+}
+.bgr-green{
+    background: #24938f;
+    color: #fff
+}

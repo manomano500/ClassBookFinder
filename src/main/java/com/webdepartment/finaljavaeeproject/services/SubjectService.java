@@ -4,8 +4,6 @@
  */
 package com.webdepartment.finaljavaeeproject.services;
 
-import com.webdepartment.finaljavaeeproject.aice.SemesterEnum;
-import static com.webdepartment.finaljavaeeproject.aice.SemesterEnum.convertStringToSemesterEnum;
 import com.webdepartment.finaljavaeeproject.entities.Book;
 import com.webdepartment.finaljavaeeproject.entities.Department;
 import com.webdepartment.finaljavaeeproject.entities.Semester;
@@ -71,10 +69,10 @@ public class SubjectService extends AbstractClass{
     
     
     public List<Subject> getSubjectsForDepartment(Department department) {
-        // Construct the JPQL query to fetch subjects for the given department
+
         String jpql = "SELECT s FROM Subject s WHERE s.departmentID = :department";
 
-        // Execute the query and bind parameters
+
         List<Subject> subjects = em.createQuery(jpql, Subject.class)
                 .setParameter("department", department)
                 .getResultList();

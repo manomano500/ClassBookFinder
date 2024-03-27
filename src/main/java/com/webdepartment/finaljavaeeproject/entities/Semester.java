@@ -22,7 +22,6 @@ import javax.validation.constraints.Size;
  *
  * @author mahjouba
  */
-//
 @Entity
 @Table(name = "semesters")
 @NamedQueries({
@@ -35,14 +34,14 @@ public class Semester implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "semesterId")
+    @Column(name = "semester_Id")
     private Integer semesterId;
     @Size(max = 100)
-    @Column(name = "SemesterName")
+    @Column(name = "semester_name")
     private String semesterName;
-    @OneToMany(mappedBy = "semesterID")
+    @OneToMany(mappedBy = "semesterId")
     private List<Book> bookList;
-    @OneToMany(mappedBy = "semesterID")
+    @OneToMany(mappedBy = "semesterId")
     private List<Subject> subjectList;
 
     public Semester() {
@@ -106,7 +105,7 @@ public class Semester implements Serializable {
 
     @Override
     public String toString() {
-        return semesterName;
+        return semesterName+ "";
     }
     
 }

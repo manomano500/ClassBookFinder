@@ -22,6 +22,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 /**
  *
@@ -36,9 +37,6 @@ public class BooksService extends AbstractClass {
 
     
 
-    final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    final String DB_URL = "jdbc:mysql://localhost:3306/javaeefinal";
-    final String USER_NAME = "root";
 
    
     public List<Book> getAllBooks() {
@@ -52,7 +50,8 @@ public class BooksService extends AbstractClass {
     
     
     
-    
+    @Transactional
+
     public void addBook(Book book){
        
        
@@ -64,11 +63,24 @@ public class BooksService extends AbstractClass {
    
       public List<Book> findBooksByDepartmentSemesterSubject(Department department, Semester semester, Subject subject) {
         return em.createQuery(
-                "SELECT b FROM Book b WHERE b.departmentID = :department AND b.semesterID = :semester AND b.subjectID = :subject",
+                "SELECT b FROM Book b WHERE b.department_id = :department AND b.semester_id = :semester AND b.subject_id = :subject",
                 Book.class)
                 .setParameter("department", department)
                 .setParameter("semester", semester)
                 .setParameter("subject", subject)
                 .getResultList();
       }
+      public List<Book> findBooksByDepartmentSubject(Department department, Subject subject) {
+        return em.createQuery(
+                "SELECT b FROM Book b WHERE b.department_id = :department AND  b.subject_id = :subject",
+                Book.class)
+                .setParameter("department", department)
+                .setParameter("subject", subject)
+                .getResultList();
+      }
+ 
+          public void deleteBook(Book book) {
+        em.remove(em.merge(book));
+    }
+
 }

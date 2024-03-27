@@ -26,48 +26,43 @@ import javax.validation.constraints.Size;
 @Table(name = "departments")
 @NamedQueries({
     @NamedQuery(name = "Department.findAll", query = "SELECT d FROM Department d"),
-    @NamedQuery(name = "Department.findByDepartmentID", query = "SELECT d FROM Department d WHERE d.departmentID = :departmentID"),
-    @NamedQuery(name = "Department.findByDepartmentName", query = "SELECT d FROM Department d WHERE d.departmentName = :departmentName")})
+    @NamedQuery(name = "Department.findByDepartmentId", query = "SELECT d FROM Department d WHERE d.departmentId = :departmentId"),
+    @NamedQuery(name = "Department.findByDepartmentName", query = "SELECT d FROM Department d WHERE d.departmentName = :departmentName"),
+    @NamedQuery(name = "Department.findByDescription", query = "SELECT d FROM Department d WHERE d.description = :description")})
 public class Department implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "departmentID")
-    private Integer departmentID;
+    @Column(name = "department_id")
+    private Integer departmentId;
     @Size(max = 255)
-    @Column(name = "DepartmentName")
+    @Column(name = "department_name")
     private String departmentName;
-    @OneToMany(mappedBy = "departmentID")
+    @Size(max = 255)
+    @Column(name = "description")
+    private String description;
+    @OneToMany(mappedBy = "departmentId")
     private List<Book> bookList;
-    @OneToMany(mappedBy = "departmentID")
+    @OneToMany(mappedBy = "departmentId")
     private List<Subject> subjectList;
-    
-    @Column(name = "Description") // Add this line for the new column
-    private String description;    // Add this line for the new field
-
+    @OneToMany(mappedBy = "departmentId")
+    private List<User> userList;
 
     public Department() {
     }
-    public String getDescription() {
-        return description;
+
+    public Department(Integer departmentId) {
+        this.departmentId = departmentId;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public Integer getDepartmentId() {
+        return departmentId;
     }
 
-    public Department(Integer departmentID) {
-        this.departmentID = departmentID;
-    }
-
-    public Integer getDepartmentID() {
-        return departmentID;
-    }
-
-    public void setDepartmentID(Integer departmentID) {
-        this.departmentID = departmentID;
+    public void setDepartmentId(Integer departmentId) {
+        this.departmentId = departmentId;
     }
 
     public String getDepartmentName() {
@@ -76,6 +71,14 @@ public class Department implements Serializable {
 
     public void setDepartmentName(String departmentName) {
         this.departmentName = departmentName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public List<Book> getBookList() {
@@ -94,10 +97,18 @@ public class Department implements Serializable {
         this.subjectList = subjectList;
     }
 
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (departmentID != null ? departmentID.hashCode() : 0);
+        hash += (departmentId != null ? departmentId.hashCode() : 0);
         return hash;
     }
 
@@ -108,7 +119,7 @@ public class Department implements Serializable {
             return false;
         }
         Department other = (Department) object;
-        if ((this.departmentID == null && other.departmentID != null) || (this.departmentID != null && !this.departmentID.equals(other.departmentID))) {
+        if ((this.departmentId == null && other.departmentId != null) || (this.departmentId != null && !this.departmentId.equals(other.departmentId))) {
             return false;
         }
         return true;
@@ -116,7 +127,7 @@ public class Department implements Serializable {
 
     @Override
     public String toString() {
-        return  departmentName ;
+        return departmentName+"";
     }
     
 }

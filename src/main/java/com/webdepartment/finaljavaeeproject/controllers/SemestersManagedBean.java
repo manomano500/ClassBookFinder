@@ -6,9 +6,7 @@ package com.webdepartment.finaljavaeeproject.controllers;
 
 import com.webdepartment.finaljavaeeproject.entities.Department;
 import com.webdepartment.finaljavaeeproject.entities.Semester;
-import com.webdepartment.finaljavaeeproject.entities.Subject;
 import com.webdepartment.finaljavaeeproject.services.SemestersService;
-import com.webdepartment.finaljavaeeproject.services.SubjectService;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
@@ -35,20 +33,18 @@ public class SemestersManagedBean implements Serializable{
     
     
     
-    private Semester selectedSemester ;
+//    private Semester selectedSemester ;
+    private List<Semester> semesterList ;
 
-    public void setSelectedSemester(Semester selectedSemester) {
-        this.selectedSemester = selectedSemester;
+    public void setSemesterList(List<Semester> semesterList) {
+        this.semesterList = semesterList;
     }
 
-    public Semester getSelectedSemester() {
-        return selectedSemester;
+    public List<Semester> getSemesterList() {
+        return semestersService.feachAllSemesters();
     }
-    public List<Semester> feachtAllSemesters() {
 
-        return semestersService.getAllSemesters();
 
-    }
     
   
 

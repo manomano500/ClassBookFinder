@@ -32,25 +32,57 @@
         <managed-bean-name>subjectsManagedBean</managed-bean-name>
         <managed-bean-class>com.webdepartment.finaljavaeeproject.controllers.SubjectsManagedBean</managed-bean-class>
     
-        <managed-bean-scope>session</managed-bean-scope></managed-bean>
-    <managed-bean>
-        <managed-bean-name>helperManagedBean</managed-bean-name>
-        <managed-bean-class>com.webdepartment.finaljavaeeproject.controllers.HelperManagedBean</managed-bean-class>
-    
-        <managed-bean-scope>request</managed-bean-scope></managed-bean>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+ 
     <managed-bean>
         <managed-bean-name>departmentManagedBean</managed-bean-name>
         <managed-bean-class>com.webdepartment.finaljavaeeproject.controllers.DepartmentManagedBean</managed-bean-class>
     
-        <managed-bean-scope>session</managed-bean-scope></managed-bean>
-    <managed-bean>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean> 
         <managed-bean-name>semestersManagedBean</managed-bean-name>
         <managed-bean-class>com.webdepartment.finaljavaeeproject.controllers.SemestersManagedBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
-        <managed-bean-name>semesterEnum</managed-bean-name>
-        <managed-bean-class>com.webdepartment.finaljavaeeproject.aice.SemesterEnum</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
+        <managed-bean-name>usersManagedBean</managed-bean-name>
+        <managed-bean-class>com.webdepartment.finaljavaeeproject.controllers.UsersManagedBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>crudView</managed-bean-name>
+        <managed-bean-class>com.webdepartment.finaljavaeeproject.controllers.CrudView</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+    <navigation-rule>
+        <from-view-id>*</from-view-id> <!-- You can specify the source view if needed -->
+        <navigation-case>
+            <from-outcome>toSubjectsPage</from-outcome> <!-- Define the outcome returned by navigateToDepartment() -->
+            <to-view-id>/subjects.xhtml</to-view-id> <!-- Specify the target view -->
+            <redirect/> <!-- Optionally specify whether to redirect -->
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>*</from-view-id> <!-- You can specify the source view if needed -->
+        <navigation-case>
+            <from-outcome>toSubjeectdetailsPage</from-outcome> <!-- Define the outcome returned by navigateToDepartment() -->
+            <to-view-id>/subjeectdetails.xhtml</to-view-id> <!-- Specify the target view -->
+            <redirect/> <!-- Optionally specify whether to redirect -->
+        </navigation-case>
+    </navigation-rule>
+    <managed-bean>
+        <managed-bean-name>mangedBean</managed-bean-name>
+        <managed-bean-class>com.webdepartment.finaljavaeeproject.xet.MangedBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+    
+    <mime-mapping>
+        <extension>woff2</extension>
+        <mime-type>font/woff2</mime-type>
+    </mime-mapping>
+
 </faces-config>

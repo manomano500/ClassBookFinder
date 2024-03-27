@@ -1,17 +1,14 @@
 package com.webdepartment.finaljavaeeproject.controllers;
-import com.webdepartment.finaljavaeeproject.aice.SemesterEnum;
 import com.webdepartment.finaljavaeeproject.entities.Book;
-import com.webdepartment.finaljavaeeproject.entities.Department;
-import com.webdepartment.finaljavaeeproject.entities.Semester;
 import com.webdepartment.finaljavaeeproject.entities.Subject;
 import com.webdepartment.finaljavaeeproject.services.SubjectService;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import java.io.IOException;
 import javax.inject.Inject;
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.transaction.Transactional;
 
 
@@ -26,32 +23,8 @@ public class SubjectsManagedBean implements Serializable{
  
     private List<Subject> subjectsList;
     
-    private String subject_name;
-//    private Semester selectedSemester; // Updated to Long type to store semester ID
-    
+    private String subject_name;  
     private Subject selectedSubject;
-
-    public void setSelectedSubject(Subject subject) {
-        this.selectedSubject = subject;
-    }
-
-    public Subject getSelectedSubject() {
-        return selectedSubject;
-    }
-
-
-    public List<Subject> getSubjectsList() {
-
-        if (subjectsList==null) {
-            subjectsList = subjectsService.getAllSubjects();
-
-            
-        }else{
-            subjectsList.clear();
-            subjectsList = subjectsService.getAllSubjects();
-        }
-        return subjectsList;
-    }
 
 
 
@@ -69,10 +42,55 @@ public class SubjectsManagedBean implements Serializable{
 
     }
 
-    // Getters and setters for selectedSem
+   
 
+   
 
-    // Getters and setters for subject_name
+    
+    public String navigateToSubjeectdetails() {
+
+        // Construct the URL of the department page with the selected department name
+        // Return the URL of the department page
+        return "toSubjeectdetailsPage";
+    }
+
+    
+    public void redirectToMainWhenLoadNestedPage() throws IOException {
+        if (selectedSubject ==null) {
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            externalContext.redirect(externalContext.getRequestContextPath() + "/main.xhtml");
+        }
+    }
+    
+    
+    
+    public List<Book> feachBooksForSelectedSubject() {
+        if (selectedSubject != null) {
+            return selectedSubject.getBookList();
+        }
+        return null;
+    }
+/////////////////Getters And Setters//////////////////
+    public void setSelectedSubject(Subject subject) {
+        this.selectedSubject = subject;
+    }
+
+    public Subject getSelectedSubject() {
+        return selectedSubject;
+    }
+
+    public List<Subject> getSubjectsList() {
+
+        if (subjectsList == null) {
+            subjectsList = subjectsService.getAllSubjects();
+
+        } else {
+            subjectsList.clear();
+            subjectsList = subjectsService.getAllSubjects();
+        }
+        return subjectsList;
+    }
+    
     public String getSubject_name() {
         return subject_name;
     }
@@ -80,28 +98,7 @@ public class SubjectsManagedBean implements Serializable{
     public void setSubject_name(String subject_name) {
         this.subject_name = subject_name;
     }
-    
-    
-    
-    
-    public List<Subject> getSubjectsForSemesterDepartment(Semester semester,Department department) {
 
-       return subjectsService.getSubjectsForSemesterDepartment(semester, department);
-    }
-    
-    public List<Subject> getSubjectsForDepartment( Department department) {
-        return subjectsService.getSubjectsForDepartment(department);
-    }
 
-    // Existing code...
-    
 
-    
-    
-    
-    
-    
-    
-    
-    
 }

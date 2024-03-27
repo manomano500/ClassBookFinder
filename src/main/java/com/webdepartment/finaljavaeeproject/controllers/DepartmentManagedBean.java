@@ -1,5 +1,6 @@
 package com.webdepartment.finaljavaeeproject.controllers;
 
+import com.webdepartment.finaljavaeeproject.entities.Book;
 import com.webdepartment.finaljavaeeproject.entities.Department;
 import com.webdepartment.finaljavaeeproject.entities.Semester;
 import com.webdepartment.finaljavaeeproject.entities.Subject;
@@ -23,29 +24,13 @@ public class DepartmentManagedBean implements Serializable {
     private DepartmentsService departmentsService;
  
 
-    /**
-     * Creates a new instance of departmentManagedBean
-     */
     private Department selectedDepartment;
 
-    public Department getSelectedDepartment() {
-        
-        return selectedDepartment;
-    }
-
-    public void setSelectedDepartment(Department selected) {
-        this.selectedDepartment = selected;
-    }
+    
 
     public String navigateToDepartment() {
-        // Optionally, you can perform some logic with the selected department before navigation
-        System.out.println("Selected Department: " + selectedDepartment);
 
-        // Construct the URL of the department page with the selected department name
-        String departmentPageUrl = "department.xhtml?faces-redirect=true&dept=" + selectedDepartment;
-
-        // Return the URL of the department page
-        return departmentPageUrl;
+        return "toSubjectsPage";
     }
     
     public List<Department> feachDepartments() {
@@ -53,18 +38,16 @@ public class DepartmentManagedBean implements Serializable {
 
     }
 
-    public List<Subject> feachDepartmentSubjects(Department department) {
-        System.err.println(department);
-        List<Subject> subjects = departmentsService.getDepartmentSubjects(department);
-//        System.err.println("Subjects List: "+subjects);
-    return subjects;
+
+/////////////////////////////////Getters And Setters////////////////////////////
+
+       public Department getSelectedDepartment() {
+
+        return selectedDepartment;
     }
 
-//    public List<Subject> fetchSemesterSubjectsForDepartment(Semester semester) {
-//        if (selectedDepartment != null && semester != null) {
-//            return departmentsService.getSemesterSubjectsForDepartment(semester, selectedDepartment);
-//        } else {
-//            return null;
-//        }
-//    }
+    public void setSelectedDepartment(Department selected) {
+//        subjectsManagedBean.setSelectedSubject(null);
+        this.selectedDepartment = selected;
+    }
 }

@@ -28,47 +28,48 @@ import javax.validation.constraints.Size;
 @Table(name = "subjects")
 @NamedQueries({
     @NamedQuery(name = "Subject.findAll", query = "SELECT s FROM Subject s"),
-    @NamedQuery(name = "Subject.findBySubjectID", query = "SELECT s FROM Subject s WHERE s.subjectID = :subjectID"),
-    @NamedQuery(name = "Subject.findBySubjectName", query = "SELECT s FROM Subject s WHERE s.subjectName = :subjectName")})
+    @NamedQuery(name = "Subject.findBySubjectId", query = "SELECT s FROM Subject s WHERE s.subjectId = :subjectId"),
+    @NamedQuery(name = "Subject.findBySubjectName", query = "SELECT s FROM Subject s WHERE s.subjectName = :subjectName"),
+    @NamedQuery(name = "Subject.findByCode", query = "SELECT s FROM Subject s WHERE s.code = :code"),
+    @NamedQuery(name = "Subject.findByUnit", query = "SELECT s FROM Subject s WHERE s.unit = :unit")})
 public class Subject implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "subjectID")
-    private Integer subjectID;
+    @Column(name = "subject_id")
+    private Integer subjectId;
     @Size(max = 255)
-    @Column(name = "SubjectName")
+    @Column(name = "subject_name")
     private String subjectName;
-    @OneToMany(mappedBy = "subjectID")
-    private List<Book> bookList;
-    @JoinColumn(name = "SemesterID", referencedColumnName = "semesterId")
-    @ManyToOne
-    private Semester semesterID;
-    @JoinColumn(name = "DepartmentID", referencedColumnName = "departmentID")
-    @ManyToOne
-    private Department departmentID;
-    
-        @Column(name = "code")
+    @Size(max = 10)
+    @Column(name = "code")
     private String code;
-
     @Column(name = "unit")
-    private int unit;
+    private Integer unit;
+    @OneToMany(mappedBy = "subjectId")
+    private List<Book> bookList;
+    @JoinColumn(name = "semester_id", referencedColumnName = "semester_Id")
+    @ManyToOne
+    private Semester semesterId;
+    @JoinColumn(name = "department_id", referencedColumnName = "department_id")
+    @ManyToOne
+    private Department departmentId;
 
     public Subject() {
     }
 
-    public Subject(Integer subjectID) {
-        this.subjectID = subjectID;
+    public Subject(Integer subjectId) {
+        this.subjectId = subjectId;
     }
 
-    public Integer getSubjectID() {
-        return subjectID;
+    public Integer getSubjectId() {
+        return subjectId;
     }
 
-    public void setSubjectID(Integer subjectID) {
-        this.subjectID = subjectID;
+    public void setSubjectId(Integer subjectId) {
+        this.subjectId = subjectId;
     }
 
     public String getSubjectName() {
@@ -79,6 +80,22 @@ public class Subject implements Serializable {
         this.subjectName = subjectName;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Integer getUnit() {
+        return unit;
+    }
+
+    public void setUnit(Integer unit) {
+        this.unit = unit;
+    }
+
     public List<Book> getBookList() {
         return bookList;
     }
@@ -87,26 +104,26 @@ public class Subject implements Serializable {
         this.bookList = bookList;
     }
 
-    public Semester getSemesterID() {
-        return semesterID;
+    public Semester getSemesterId() {
+        return semesterId;
     }
 
-    public void setSemesterID(Semester semesterID) {
-        this.semesterID = semesterID;
+    public void setSemesterId(Semester semesterId) {
+        this.semesterId = semesterId;
     }
 
-    public Department getDepartmentID() {
-        return departmentID;
+    public Department getDepartmentId() {
+        return departmentId;
     }
 
-    public void setDepartmentID(Department departmentID) {
-        this.departmentID = departmentID;
+    public void setDepartmentId(Department departmentId) {
+        this.departmentId = departmentId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (subjectID != null ? subjectID.hashCode() : 0);
+        hash += (subjectId != null ? subjectId.hashCode() : 0);
         return hash;
     }
 
@@ -117,32 +134,15 @@ public class Subject implements Serializable {
             return false;
         }
         Subject other = (Subject) object;
-        if ((this.subjectID == null && other.subjectID != null) || (this.subjectID != null && !this.subjectID.equals(other.subjectID))) {
+        if ((this.subjectId == null && other.subjectId != null) || (this.subjectId != null && !this.subjectId.equals(other.subjectId))) {
             return false;
         }
         return true;
     }
-    
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public int getUnit() {
-        return unit;
-    }
-
-    public void setUnit(int unit) {
-        this.unit = unit;
-    }
-
 
     @Override
     public String toString() {
-        return subjectName;
+        return subjectName +"";
     }
     
 }

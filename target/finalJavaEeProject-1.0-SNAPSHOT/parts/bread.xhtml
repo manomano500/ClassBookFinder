@@ -15,6 +15,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    
     </h:head>
     <h:body>
         
@@ -23,12 +24,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         <div class="card">
             <h:form>
                 <p:breadCrumb>
-                    <p:menuitem value="#{departmentManagedBean.selectedDepartment.departmentName}"  action="#{departmentManagedBean.navigateToDepartment()}"/>
-                    <p:menuitem value="#{departmentManagedBean.selectedDepartment.departmentName}" />
-                    <p:menuitem value="Computer" />
+                    <p:menuitem outcome="main.xhtml"/>
 
+                    <p:menuitem value="#{departmentManagedBean.selectedDepartment}" rendered="#{not empty departmentManagedBean.selectedDepartment}"  outcome="#{departmentManagedBean.navigateToDepartment()}" />
+
+                    <p:menuitem value="#{subjectsManagedBean.selectedSubject}" rendered="#{not empty subjectsManagedBean.selectedSubject}" />
                 </p:breadCrumb>
-            </h:form>
+            </h:form>   
         </div>
     </h:body>
 </html>
